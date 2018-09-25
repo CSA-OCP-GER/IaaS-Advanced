@@ -1,0 +1,6 @@
+Slide mit VM Scale Set überblick.
+Loadbalancer
+DSC automation
+
+
+To - Dos wenn man das in der UI aufbauen möchte.

@@ -1,0 +1,25 @@
+iometer gegen eine P20 Disk:
+===========================
+Ergebnis 1400/1500 iops
+8kb
+100 Randaom
+33 Schreiben
+67 Lesen
+
+iometer gegen disk manager stripe set 6 x P20 Disk:
+===========================
+Ergebnis: 7600/7800 iops
+8kb
+100 Random
+33 Schreiben
+67 Lesen
+
+
+
+iometer gegen storage space simple 6 x P20 Disk:
+===========================
+Ergebnis: 7500 - 7700 iops
+8kb
+100 Random
+33 Schreiben
+67 Lesen
