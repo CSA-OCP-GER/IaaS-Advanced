@@ -24,7 +24,7 @@ Attach a count of $DataDiskCount data disks to a VM as a basis for some perf tes
 #endregion
    
 #Login to Azure
-Login-AzureRMAccount
+#Login-AzureRMAccount
    
 $VM = Get-AzureRmVM -ResourceGroupName $RG -Name $VMName
 
