@@ -19,7 +19,7 @@
 #endregion
    
 #Login to Azure
-Login-AzureRMAccount
+#Login-AzureRMAccount
 
 #sample
 #$myCSE1URL = "https://raw.githubusercontent.com/bernhardfrank/AzureBlackMagicVeeam/master/CSE/HelloCustomScriptExtension.ps1"

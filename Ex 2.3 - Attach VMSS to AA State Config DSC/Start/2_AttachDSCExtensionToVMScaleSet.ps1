@@ -26,7 +26,7 @@ https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/dsc-template
     $VMScaleSetName = "myVMScaleSet"
 #endregion
 
-Login-AzureRmAccount
+#Login-AzureRmAccount
 
 # get Azure Automation State Configuration registration info
 $Account = Get-AzureRmAutomationAccount -ResourceGroupName $RG -Name $AutomationAccountName
