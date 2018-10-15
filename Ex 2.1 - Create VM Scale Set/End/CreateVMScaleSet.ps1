@@ -1,5 +1,5 @@
 ﻿<#
-see https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/quick-create-powershell
+    see https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/quick-create-powershell
 #>
 
 #region Variables
@@ -84,12 +84,23 @@ $NSG = New-AzureRmNetworkSecurityGroup -Name $NSGName -ResourceGroupName $RG -Lo
 #VMSS Config
 $VMSS = New-AzureRmVmssConfig -Location $Location -SkuCapacity 2 -SkuName $SKUName -UpgradePolicyMode "Automatic" `
     | Add-AzureRmVmssNetworkInterfaceConfiguration -Name "Test" -Primary $True -IPConfiguration $IPCfg -NetworkSecurityGroupId $NSG.Id `
-    | Set-AzureRmVmssOSProfile -ComputerNamePrefix "Test"  -AdminUsername $AdminUsername -AdminPassword $AdminPassword `
+    | Set-AzureRmVmssOSProfile -ComputerNamePrefix "Test" -CustomData -AdminUsername $AdminUsername -AdminPassword $AdminPassword `
     | Set-AzureRmVmssStorageProfile -OsDiskCreateOption 'FromImage' -OsDiskCaching "None" `
     -ImageReferenceOffer $Offer -ImageReferenceSku $Sku.Skus -ImageReferenceVersion $Version `
     -ImageReferencePublisher $PublisherName -OsDiskOsType Windows -ManagedDisk Premium_LRS `
     | Add-AzureRmVmssExtension -Name $ExtName -Publisher $Publisher -Type $ExtType -TypeHandlerVersion $ExtVer -AutoUpgradeMinorVersion $True
 
-    
+<#to eliminate the error
+The request content was invalid and could not be deserialized: 'Required property 'type' not found in JSON. Path 'identity', .....
+ErrorCode: InvalidRequestContent
+ErrorMessage: The request content was invalid and could not be deserialized: 'Required property 'type' not found in JSON. Path 'identity', line 87, position 3.'.
+
+see https://docs.microsoft.com/en-us/azure/templates/microsoft.compute/virtualmachinescalesets#VirtualMachineScaleSetIdentity
+->this element is not required -> therefore we null it explicitly!
+seems to be a code flaw...
+#>
+$VMSS.Identity = $null
+
 #Create the VMSS
-New-AzureRmVmss -ResourceGroupName $RG -Name $VMScaleSetName -VirtualMachineScaleSet $VMSS -AsJob
+New-AzureRmVmss -ResourceGroupName $RG -Name $VMScaleSetName -VirtualMachineScaleSet $VMSS 
+

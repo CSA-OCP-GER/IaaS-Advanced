@@ -5,7 +5,6 @@
 
    
 # $installed = Get-InstalledModule -Name AzureRm*          -> works with PowerShellGet >= 2.0
-
 #get a list of the latest version of an installed AzureRM module
 $installed = get-module -ListAvailable -Name "AzureRM*" |  Group-Object -Property Name | % {$_.Group | Sort-Object Version -Descending | select-object -first 1}
 
